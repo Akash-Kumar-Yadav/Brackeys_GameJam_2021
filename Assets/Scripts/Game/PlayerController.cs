@@ -10,21 +10,34 @@ namespace StylizedMultiplayer
 {
     public class PlayerController : MonoBehaviour
     {
-        private Vector2 _lookPosition;
-        
         [SerializeField] private Vector3 _cameraSpawnPoint;
         [SerializeField] private Vector2 _inputs;
         [SerializeField] private float _speed;
         [SerializeField] private PlayerInputs _inputActions;
+        [SerializeField] private Rigidbody _rigidbody;
+        [SerializeField] private Animator _animator;
 
         private PhotonView _photonView;
+        private Ray _ray;
+        private Vector2 _lookPosition;
+        private Vector3 _move;
+        private int _animatorWalk;
+
         private IRaycasting _raycasting;
         private void Awake()
         {
             if (_photonView == null)
                 _photonView = GetComponent<PhotonView>();
 
-            if (!_photonView.IsMine) { return; }
+            if (!_photonView.IsMine) 
+            {
+                GetComponent<Rigidbody>().Sleep();
+                return;
+            }
+
+            _rigidbody = GetComponent<Rigidbody>();
+            _animator = GetComponent<Animator>();
+            _animatorWalk = Animator.StringToHash("Walk");
 
             SpawnCamera();
 
@@ -44,18 +57,26 @@ namespace StylizedMultiplayer
         {
             if (!_photonView.IsMine) { return; }
 
-            Ray ray = _raycasting.GetRay(_lookPosition);
+            _ray = _raycasting.GetRay(_lookPosition);
+            _move = new Vector3(_inputs.x * _speed, 0, _inputs.y * _speed);
 
-            if(Physics.Raycast(ray, out RaycastHit hit))
+            _animator.SetFloat(_animatorWalk, _move.normalized.magnitude);
+        }
+        private void FixedUpdate()
+        {
+            if (!_photonView.IsMine) { return; }
+
+            if (Physics.Raycast(_ray, out RaycastHit hit))
             {
                 var direction = hit.point - transform.position;
-                float angle = Mathf.Atan2(direction.z,direction.x)*Mathf.Rad2Deg - 90;
-                transform.rotation = Quaternion.AngleAxis(-angle,Vector3.up); 
+                float angle = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg - 90;
+                CharacterRotation(angle);
             }
-            Vector3 move = new Vector3(_inputs.x * _speed, 0, _inputs.y * _speed);
-            transform.Translate(move * Time.deltaTime);
-
+            CharacterMovement();
         }
+
+        private void CharacterMovement() => transform.Translate(_move * Time.deltaTime);
+        private void CharacterRotation(float angle) => _rigidbody.rotation = Quaternion.AngleAxis(-angle, Vector3.up);
 
         private void SpawnCamera()
         {

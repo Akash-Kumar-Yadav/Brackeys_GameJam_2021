@@ -561,11 +561,14 @@ GameObject:
   m_Component:
   - component: {fileID: 5353096420485895077}
   - component: {fileID: 5353096421680835616}
+  - component: {fileID: 5542677158549141060}
+  - component: {fileID: 6132153618164457614}
   - component: {fileID: 131099376674512089}
   - component: {fileID: 5465766035066114040}
   - component: {fileID: 4641742197826173972}
   - component: {fileID: 8663297366015422132}
   - component: {fileID: 4520439061826909054}
+  - component: {fileID: 2092547739698180301}
   m_Layer: 0
   m_Name: PBRCharacter
   m_TagString: Untagged
@@ -613,6 +616,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!54 &5542677158549141060
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5353096420486123397}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 112
+  m_CollisionDetection: 1
+--- !u!136 &6132153618164457614
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5353096420486123397}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &131099376674512089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,7 +690,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cameraSpawnPoint: {x: 0, y: 0, z: 0}
   _inputs: {x: 0, y: 0}
-  _speed: 10
+  _speed: 5
+  _rigidbody: {fileID: 5542677158549141060}
+  _animator: {fileID: 5353096421680835616}
 --- !u!114 &4641742197826173972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,6 +714,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 8663297366015422132}
   - {fileID: 4520439061826909054}
+  - {fileID: 2092547739698180301}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -714,14 +750,30 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: Dead
   - Type: 1
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: Walk
   m_SynchronizeLayers:
-  - SynchronizeType: 0
+  - SynchronizeType: 1
     LayerIndex: 0
+--- !u!114 &2092547739698180301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5353096420486123397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &5353096420486123399
 GameObject:
   m_ObjectHideFlags: 0

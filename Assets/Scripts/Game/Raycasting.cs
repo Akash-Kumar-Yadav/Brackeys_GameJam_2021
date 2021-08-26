@@ -15,6 +15,19 @@ namespace StylizedMultiplayer
 
         [SerializeField] private Transform _followTarget;
         [SerializeField] private CinemachineVirtualCamera _cinemachineVirtualCamera;
+
+        private void Awake()
+        {
+            if(_photonView == null)
+            {
+                _photonView = GetComponent<PhotonView>();
+            }
+            if (_photonView.IsMine == false)
+            {
+                // Destroy(gameObject);
+                gameObject.SetActive(false);
+            }
+        }
         public Ray GetRay(Vector2 lookPosition) => _main.ScreenPointToRay(lookPosition);
 
         public Transform UnParentCameraFromPlayer(Transform target)

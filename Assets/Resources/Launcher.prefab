@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4490024679162320534}
-  - component: {fileID: 3848869231687786382}
+  - component: {fileID: 8839862554006107382}
   - component: {fileID: 1602745878680424369}
   m_Layer: 0
   m_Name: Launcher
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3848869231687786382
+--- !u!114 &8839862554006107382
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,13 +41,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4490024679162320533}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c302df9cb085574d8d223805157a69f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b957aaedab153b45858bca91817e04f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _photonView: {fileID: 0}
+  _photonView: {fileID: 1602745878680424369}
   _playerCharacterPrefabName: PBRCharacter
-  _camera: Camera
-  _cameraSpawnPosition: {fileID: 0}
 --- !u!114 &1602745878680424369
 MonoBehaviour:
   m_ObjectHideFlags: 0

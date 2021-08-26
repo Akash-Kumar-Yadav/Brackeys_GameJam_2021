@@ -1,11 +1,12 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace StylizedMultiplayer
 {
-    public class PlayerController : MonoBehaviour
+    public class AllPlayersConnect : MonoBehaviourPunCallbacks
     {
-        [SerializeField] private float _speed;
+        
     }
 }

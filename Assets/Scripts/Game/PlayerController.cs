@@ -75,7 +75,13 @@ namespace StylizedMultiplayer
             CharacterMovement();
         }
 
-        private void CharacterMovement() => transform.Translate(_move * Time.deltaTime);
+        private void CharacterMovement() 
+        {
+            var local = transform.TransformDirection( _move );
+
+            _rigidbody.MovePosition(transform.position+local* Time.deltaTime);
+        }
+
         private void CharacterRotation(float angle) => _rigidbody.rotation = Quaternion.AngleAxis(-angle, Vector3.up);
 
         private void SpawnCamera()

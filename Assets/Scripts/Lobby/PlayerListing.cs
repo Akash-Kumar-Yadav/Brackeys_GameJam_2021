@@ -44,8 +44,7 @@ namespace StylizedMultiplayer
                 obj.GetComponentInChildren<TMP_Text>().text = item.NickName;
                 _playerLists.Add(obj);
             }
-            print("ggggggggggggggggggggggggggg");
-        }
+        }   
 
         private void ClearPlayerListing()
         {

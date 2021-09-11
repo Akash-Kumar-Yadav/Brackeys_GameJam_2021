@@ -13,6 +13,7 @@ namespace StylizedMultiplayer
         [SerializeField] private Vector3 _cameraSpawnPoint;
         [SerializeField] private Vector2 _inputs;
         [SerializeField] private float _speed;
+        [SerializeField] private Transform _bulletSpawnPoint;
         [SerializeField] private PlayerInputs _inputActions;
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Animator _animator;
@@ -24,6 +25,7 @@ namespace StylizedMultiplayer
         private int _animatorWalk;
 
         private IRaycasting _raycasting;
+
         private void Awake()
         {
             if (_photonView == null)
@@ -48,7 +50,11 @@ namespace StylizedMultiplayer
             _inputActions.Player.Mouse.performed += MouseMovement;
             _inputActions.Player.Move.performed += Movement;
             _inputActions.Player.Move.canceled += Movement;
+            _inputActions.Player.LeftClick.started += Shoot;
+            
         }
+
+        private void Shoot(InputAction.CallbackContext obj) => Fire();
 
         private void Movement(InputAction.CallbackContext obj) => _inputs = obj.ReadValue<Vector2>();
         private void MouseMovement(InputAction.CallbackContext obj) => _lookPosition = obj.ReadValue<Vector2>();
@@ -74,20 +80,21 @@ namespace StylizedMultiplayer
             }
             CharacterMovement();
         }
-
-        private void CharacterMovement() 
-        {
-            var local = transform.TransformDirection( _move );
-
-            _rigidbody.MovePosition(transform.position+local* Time.deltaTime);
-        }
-
+        private void CharacterMovement() => _rigidbody.MovePosition(transform.position + transform.TransformDirection(_move) * Time.deltaTime);
         private void CharacterRotation(float angle) => _rigidbody.rotation = Quaternion.AngleAxis(-angle, Vector3.up);
-
         private void SpawnCamera()
         {
             var obj = PhotonNetwork.Instantiate(Path.Combine("Camera"),_cameraSpawnPoint,Quaternion.Euler(45,140,0));
             _raycasting = obj.GetComponent<IRaycasting>();
+        }
+
+        private void Fire()
+        {
+            GameObject bullet = PhotonNetwork.Instantiate(Path.Combine("Bullet"),
+            _bulletSpawnPoint.position,Quaternion.identity);
+           
+            bullet.GetComponent<Bullet>().SetTrajectory(transform.forward,1000);
+          
         }
         private void OnDisable()
         {

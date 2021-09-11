@@ -6,7 +6,6 @@ namespace Photon.Pun.Demo.Asteroids
     public class Bullet : MonoBehaviour
     {
         public Player Owner { get; private set; }
-
         public void Start()
         {
             Destroy(gameObject, 3.0f);

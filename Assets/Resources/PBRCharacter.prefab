@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3597084899202748165}
   m_LocalRotation: {x: -0.12676658, y: 0.0098366095, z: 0.076736234, w: 0.98891103}
-  m_LocalPosition: {x: -21.501362, y: -7.899531, z: 58.604744}
+  m_LocalPosition: {x: -22, y: 1, z: 91}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 5353096420485895165}
@@ -599,6 +599,7 @@ GameObject:
   - component: {fileID: 8663297366015422132}
   - component: {fileID: 4520439061826909054}
   - component: {fileID: 2092547739698180301}
+  - component: {fileID: 2751758158809363808}
   m_Layer: 0
   m_Name: PBRCharacter
   m_TagString: Untagged
@@ -718,10 +719,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 072c308c56603b148960946d479c022e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _force: 152
   _cameraSpawnPoint: {x: 0, y: 0, z: 0}
   _inputs: {x: 0, y: 0}
   _speed: 5
-  _bulletSpawnPoint: {fileID: 1078721245145063426}
   _rigidbody: {fileID: 5542677158549141060}
   _animator: {fileID: 5353096421680835616}
 --- !u!114 &4641742197826173972
@@ -805,6 +806,22 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
+--- !u!114 &2751758158809363808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5353096420486123397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 863a032d0f0d89045b008383f6173201, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _poolPrefab: {fileID: 9094663128973426882, guid: bc5f4bdc081a2de4d819bf061124908d, type: 3}
+  _poolList: []
+  _poolListAmount: 20
+  _bulletSpawnPoint: {fileID: 1078721245145063426}
 --- !u!1 &5353096420486123399
 GameObject:
   m_ObjectHideFlags: 0

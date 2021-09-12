@@ -14,8 +14,10 @@ GameObject:
   - component: {fileID: 9094663128973426881}
   - component: {fileID: 5992803042480099964}
   - component: {fileID: 9094663128973426885}
-  - component: {fileID: 5122951159605969203}
   - component: {fileID: 6686869653472608306}
+  - component: {fileID: 5122951159605969203}
+  - component: {fileID: -6296260318281254995}
+  - component: {fileID: -3775929474915850896}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -112,9 +114,9 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!96 &9094663128973426885
 TrailRenderer:
   serializedVersion: 2
@@ -222,6 +224,18 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &6686869653472608306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9094663128973426882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b22bbaccc038d9048a5d13ef83cfd96b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5122951159605969203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,11 +254,13 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: -6296260318281254995}
+  - {fileID: -3775929474915850896}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &6686869653472608306
+--- !u!114 &-6296260318281254995
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -253,6 +269,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 9094663128973426882}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b22bbaccc038d9048a5d13ef83cfd96b, type: 3}
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 1
+  m_UseLocal: 1
+--- !u!114 &-3775929474915850896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9094663128973426882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 1
+  m_TeleportIfDistanceGreaterThan: 3

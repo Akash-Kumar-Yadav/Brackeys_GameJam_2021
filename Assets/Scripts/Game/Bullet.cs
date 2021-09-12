@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 
 namespace StylizedMultiplayer
@@ -5,14 +6,30 @@ namespace StylizedMultiplayer
     public class Bullet : MonoBehaviour 
     {
         private Rigidbody _rigidbody;
-        private void Start() 
+        PhotonView _photonView;
+        
+        private void OnEnable() 
         {
-            _rigidbody = GetComponent<Rigidbody>();
-            Destroy(gameObject,5f);    
-        }
+           if(_photonView == null)
+            _photonView = GetComponent<PhotonView>();
 
+            if(_rigidbody == null)
+            _rigidbody = GetComponent<Rigidbody>();
+            
+             if(!_photonView.IsMine)
+            {
+                _rigidbody.Sleep();
+            }else
+            {
+                _rigidbody.WakeUp();
+            }
+
+            Invoke("DisableGameObject",5); 
+        }
         public void SetTrajectory(Vector3 direction,float force)
         {
+            if(!_photonView.IsMine) return;
+
             if(_rigidbody == null){
                 _rigidbody = GetComponent<Rigidbody>();
             }
@@ -21,7 +38,27 @@ namespace StylizedMultiplayer
         }
         private void OnCollisionEnter(Collision collisionInfo)
         {
-            Destroy(gameObject);
+           gameObject.SetActive(false);
+        }
+
+        private void DisableGameObject()
+        {
+            gameObject.SetActive(false);
+        }
+
+        private void OnDisable() 
+        {
+            if(_photonView == null)
+            _photonView = GetComponent<PhotonView>();
+
+            if(_rigidbody == null)
+            _rigidbody = GetComponent<Rigidbody>();
+
+
+             if(_photonView.IsMine)
+            {
+                _rigidbody.Sleep();
+            }
         }    
     }
 

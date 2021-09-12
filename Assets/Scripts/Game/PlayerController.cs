@@ -10,14 +10,15 @@ namespace StylizedMultiplayer
 {
     public class PlayerController : MonoBehaviour
     {
+        [SerializeField,Range(100,500)] private int _force = 500;
         [SerializeField] private Vector3 _cameraSpawnPoint;
         [SerializeField] private Vector2 _inputs;
         [SerializeField] private float _speed;
-        [SerializeField] private Transform _bulletSpawnPoint;
         [SerializeField] private PlayerInputs _inputActions;
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Animator _animator;
 
+        private ObjectPooling _objectPooling;
         private PhotonView _photonView;
         private Ray _ray;
         private Vector2 _lookPosition;
@@ -39,6 +40,7 @@ namespace StylizedMultiplayer
 
             _rigidbody = GetComponent<Rigidbody>();
             _animator = GetComponent<Animator>();
+            _objectPooling = GetComponent<ObjectPooling>();
             _animatorWalk = Animator.StringToHash("Walk");
 
             SpawnCamera();
@@ -50,7 +52,7 @@ namespace StylizedMultiplayer
             _inputActions.Player.Mouse.performed += MouseMovement;
             _inputActions.Player.Move.performed += Movement;
             _inputActions.Player.Move.canceled += Movement;
-            _inputActions.Player.LeftClick.started += Shoot;
+            _inputActions.Player.LeftClick.performed += Shoot;
             
         }
 
@@ -90,12 +92,13 @@ namespace StylizedMultiplayer
 
         private void Fire()
         {
-            GameObject bullet = PhotonNetwork.Instantiate(Path.Combine("Bullet"),
-            _bulletSpawnPoint.position,Quaternion.identity);
-           
-            bullet.GetComponent<Bullet>().SetTrajectory(transform.forward,1000);
-          
-        }
+            var bullet = _objectPooling.GetPooledObject();
+            bullet.SetActive(true);
+           if(bullet != null)
+            bullet.GetComponent<Bullet>().SetTrajectory(transform.forward, _force);
+          else
+            Debug.LogError("bullet null");
+        }   
         private void OnDisable()
         {
             if (!_photonView.IsMine) { return; }

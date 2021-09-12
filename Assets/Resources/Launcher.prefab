@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _photonView: {fileID: 1602745878680424369}
   _playerCharacterPrefabName: PBRCharacter
+  _player: {fileID: 0}
 --- !u!114 &1602745878680424369
 MonoBehaviour:
   m_ObjectHideFlags: 0
